@@ -1,0 +1,47 @@
+<div class="pt-5 row flex-wrap">
+  <div class="col-xl-9">
+    <div class="">
+      <div class="display-flex">
+        <div class="w-100">
+          <div class="card p-4 card-rounded">
+            <div class="card card-header">
+              <h2>Author: {{userPost.User.username}}</h2>
+              <h2>{{userPost.title}} </h2>
+            </div>
+            <div class="card card-body card-rounded">
+              <button class="update-post" data-id={{userPost.id}}>Update</button>
+              <button class="delete-post" data-id={{userPost.id}}>Delete</button>
+            </div>
+            <div class="card card-body card-rounded">
+              <p>{{userPost.body}}</p>
+            </div>
+            <div class="card card-body card-rounded">
+              <p>Posted On: {{userPost.createdAt}}</p>
+            </div>
+            <div class="card card-footer card-rounded">
+              <h3 id="selectedPost" class="w-100 commentsTag">Comments</h3>
+
+              {{#each comments as |comment| }}
+              {{> comments}}
+              {{/each}}
+            </div>
+            <div class="card card-footer card-rounded">
+              <form class="form login-form">
+                <div class="form-group">
+                  <label for="comment-form">Comment:</label>
+                  <input name="comment-body" class="form-input" type="text" placeholder="comment text goes here" />
+                <div class="form-group">
+                  <button id="commentButton" class="btn btn-primary" type="submit" data-id={{userPost.id}}>Comment</button>
+                </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/comment.js"></script>
+<script src="/js/updateDelete.js"></script>

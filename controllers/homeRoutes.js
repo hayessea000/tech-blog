@@ -58,6 +58,41 @@ router.get('/post/:id', withAuth, async (req, res) => {
   }
 });
 
+router.get('/dashboard/:id', withAuth, async (req, res) => {
+  try {
+    const userPostData = await UserPost.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+      ],
+    });
+
+    const userPost = userPostData.get({ plain: true });
+
+    const commentData = await Comments.findAll({
+      where: {userPost_id: req.params.id},
+      include: [{
+        model: User,
+        attributes: { exclude: ['password'] }
+      }]
+    });
+
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+
+    console.log(comments);
+
+    res.render('dashboardPost', {
+      userPost,
+      comments,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
   try {

@@ -11,7 +11,7 @@ const newPostHandler = async (event) => {
   const title = document.querySelector('#post-title').value;
   const message = document.querySelector('#post-message').value;
 
-  await fetch(`/api/newpost`, {
+  await fetch(`/api/post`, {
     method: 'POST',
     body: JSON.stringify({
       title,
