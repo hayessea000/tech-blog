@@ -48,17 +48,38 @@ router.get('/post/:id', async (req, res) => {
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    // Find the logged in user based on the session ID
-    const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: UserPost }],
+    const userData = await User.findOne({
+      where: { id: req.session.user_id },
     });
 
+     console.log(userData);
     const user = userData.get({ plain: true });
 
+
+    if (!userData) {
+      res
+        .status(400)
+        .json({ message: 'No user data found, please log in and try again' });
+      return;
+    }
+
+    const postData = await UserPost.findAll({
+      where: { user_id: req.session.user_id },
+      include: [{
+        model: User,
+        attributes: { exclude: ['password'] },
+        order: [['name', 'ASC']]
+      }]
+    });
+
+    const posts = postData.map((post) => post.get({ plain: true }));
+
+    console.log(posts);
+
     res.render('dashboard', {
-      ...user,
-      logged_in: true
+      user,
+      posts,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);
