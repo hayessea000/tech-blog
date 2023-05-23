@@ -1,25 +1,21 @@
 const router = require('express').Router();
-const { Project, User } = require('../model');
+const { Comments, User, UserPost } = require('../model');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const postData = await Post.findAll({
+    const userPostData = await UserPost.findAll({
       include: [
         {
           model: User,
-          attributes: ['name'],
         },
       ],
     });
 
-    // Serialize data so the template can read it
-    const posts = postData.map((post) => post.get({ plain: true }));
+    const userPosts = userPostData.map((userPost) => userPost.get({ plain: true }));
 
-    // Pass serialized data and session flag into template
     res.render('homepage', { 
-      posts, 
+      userPosts, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -29,19 +25,19 @@ router.get('/', async (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
   try {
-    const postData = await Post.findByPk(req.params.id, {
+    const userPostData = await UserPost.findByPk(req.params.id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: { exclude: ['password'] },
         },
       ],
     });
 
-    const post = postData.get({ plain: true });
+    const userPost = userPostData.get({ plain: true });
 
     res.render('post', {
-      ...post,
+      ...userPost,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -55,7 +51,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: UserPost }],
     });
 
     const user = userData.get({ plain: true });
