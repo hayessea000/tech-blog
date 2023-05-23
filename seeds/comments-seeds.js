@@ -1,4 +1,4 @@
-const { Comments } = require('../models');
+const { Comments } = require('../model');
 
 const commentsData = [
   {
