@@ -8,7 +8,7 @@
           <h2 data-id={{userPost.id}}>{{userPost.title}} </h2>
         </div>
         <div class="card card-body card-rounded" data-id={{userPost.id}}>
-          <p data-id={{userPost.id}}>Posted On: {{userPost.createdAt}}</p>
+          <p data-id={{userPost.id}}>Posted On: {{format_date userPost.createdAt}}</p>
         </div>
       </div>
     </div>

@@ -12,7 +12,7 @@
               <p>{{userPost.body}}</p>
             </div>
             <div class="card card-body card-rounded">
-              <p>Posted On: {{userPost.createdAt}}</p>
+              <p>Posted On: {{format_date userPost.createdAt}}</p>
             </div>
             <div class="card card-footer card-rounded">
               <h3 id="selectedPost" class="w-100 commentsTag">Comments</h3>
