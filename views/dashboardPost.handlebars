@@ -9,8 +9,24 @@
               <h2>{{userPost.title}} </h2>
             </div>
             <div class="card card-body card-rounded">
-              <button class="update-post" data-id={{userPost.id}}>Update</button>
+              <button class="update-post">Update</button>
               <button class="delete-post" data-id={{userPost.id}}>Delete</button>
+            </div>
+            <div class="hidden updatepost">
+                <center><section class="col-xl-12 w-100 py-5 display-flex flex-column align-around">
+                    <div class="responsivewidth">
+                    <center><h2>Update Post</h2></center>
+                    <div class="form">
+                        <textarea class="form-input responsivewidth" rows="2" cols="50" type="text" id="post-title" placeholder='{{userPost.title}}'></textarea>
+                    </div>
+                    <div class="form">
+                        <textarea  class="form-input responsivewidth" rows="8" cols="50" id="post-message" placeholder='{{userPost.body}}'></textarea>
+                    </div>
+                    <center><div class="form responsivewidth">
+                        <button class="btn btn-primary responsivewidth updatePostButton" type="submit" data-id={{userPost.id}}>Update</button>
+                    </div></center>
+                    </div>
+                </section></center>
             </div>
             <div class="card card-body card-rounded">
               <p>{{userPost.body}}</p>

@@ -9,17 +9,6 @@ router.post('/', async (req, res) => {
       user_id: req.session.user_id,
     });
 
-    const newpost = newpostData.get({ plain: true });
-
-    console.log(newpost);
-
-    const postData = await UserPost.findAll({
-      include: [{
-        model: User,
-        attributes: { exclude: ['password'] },
-        order: [['name', 'ASC']]
-      }]
-    });
     res.status(200).json(postData);
   } catch (err) {
     res.status(500).json(err);
@@ -36,5 +25,18 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+router.put('/:id', async (req, res) => {
+  try {
+    const updatepostData = await UserPost.update(req.body,{
+      where: {id:req.params.id}, 
+    });
+
+    res.status(200).json(updatepostData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 module.exports = router;

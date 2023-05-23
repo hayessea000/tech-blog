@@ -1,3 +1,5 @@
+const newPostSection = document.querySelector('.updatepost');
+
 const deleteReroute = async (event) => {
     event.preventDefault();
     const buttonId = event.target.dataset.id
@@ -9,23 +11,34 @@ const deleteReroute = async (event) => {
   document.location.replace(`/dashboard`);
 }
 
-const updateHandler = async (event) => {
+
+const updateHandler = (e) => {
+    e.preventDefault();
+    newPostSection.classList.remove("hidden");
+}
+
+const nowUpdateHandler = async (event) => {
   event.preventDefault();
 
+  const buttonId = event.target.dataset.id
   const title = document.querySelector('#post-title').value;
-  const message = document.querySelector('#post-message').value;
+  const body = document.querySelector('#post-message').value;
 
-  await fetch(`/api/newpost`, {
-    method: 'POST',
+  await fetch(`/api/post/${buttonId}`, {
+    method: 'PUT',
     body: JSON.stringify({
       title,
-      message,
+      body,
     }),
     headers: { 'Content-Type': 'application/json' },
   });
 
-//   document.location.reload();
+  document.location.reload();
 }
+
+document
+  .querySelector('.updatePostButton')
+  .addEventListener('click', nowUpdateHandler);
 
 document
   .querySelector('.update-post')
