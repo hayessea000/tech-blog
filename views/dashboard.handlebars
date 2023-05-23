@@ -13,13 +13,13 @@
 <div class="flex-row">
   {{#each posts as |post| }}
   <div class="flex-column flex-no-wrap col-xl-4 w-25">
-    <div class="display-flex postCard" data-id={{userPost.id}}>
-      <div class="card p-4 card-rounded" data-id={{userPost.id}}>
+    <div class="display-flex postCard" data-id={{post.id}}>
+      <div class="card p-4 card-rounded" data-id={{post.id}}>
         <div class="card card-header" data-id={{post.id}}>
-          <h2 data-id={{userPost.id}}>{{post.title}} </h2>
+          <h2 data-id={{post.id}}>{{post.title}} </h2>
         </div>
-        <div class="card card-body card-rounded" data-id={{userPost.id}}>
-          <p data-id={{userPost.id}}>Posted On: {{post.createdAt}}</p>
+        <div class="card card-body card-rounded" data-id={{post.id}}>
+          <p data-id={{post.id}}>Posted On: {{post.createdAt}}</p>
         </div>
       </div>
     </div>

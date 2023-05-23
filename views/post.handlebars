@@ -5,17 +5,17 @@
         <div class="w-100">
           <div class="card p-4 card-rounded">
             <div class="card card-header">
-              <h2>Author: {{post.User.username}}</h2>
-              <h2>{{post.title}} </h2>
+              <h2>Author: {{userPost.User.username}}</h2>
+              <h2>{{userPost.title}} </h2>
             </div>
             <div class="card card-body card-rounded">
-              <p>{{post.body}}</p>
+              <p>{{userPost.body}}</p>
             </div>
             <div class="card card-body card-rounded">
-              <p>Posted On: {{post.createdAt}}</p>
+              <p>Posted On: {{userPost.createdAt}}</p>
             </div>
             <div class="card card-footer card-rounded">
-              <h3 id="selectedPost" data-id="{{post.id}}" class="w-100 commentsTag">Comments</h3>
+              <h3 id="selectedPost" class="w-100 commentsTag">Comments</h3>
 
               {{!-- {{#each comments as |comment| }}
               {{> comments}}
